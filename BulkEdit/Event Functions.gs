@@ -132,20 +132,21 @@ function alternativeDeleteEvent(calendarID, event){
 }
 
 function keywordMatch(keyword,keywordLoc,event){
+  var re = RegExp("^" + keyword + ".*$", "i");
   if (keywordLoc == "Title"){
-    if(event.getTitle().search(keyword) >= 0)
+    if(event.getTitle().match(re))
       return true;
     else
       return false;
   }
   else if (keywordLoc == "Description"){
-    if(event.getDescription().search(keyword) >= 0)
+    if(event.getDescription().match(re))
       return true;
     else
       return false;
   }
   else if (keywordLoc == "Location"){
-    if(event.getLocation().search(keyword) >= 0)
+    if(event.getLocation().match(re))
       return true;
     else
       return false;
