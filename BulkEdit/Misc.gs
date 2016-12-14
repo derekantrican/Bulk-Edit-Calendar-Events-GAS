@@ -40,29 +40,32 @@ function resetFields() {
   sheet.getRange("C7").setValue("");
   
   //Set optional fields "No"
-  sheet.getRange("C9").setValue("No");
-  sheet.getRange("C10").setValue("No");
-  sheet.getRange("C11").setValue("No");
-  sheet.getRange("C12").setValue("No");
-  sheet.getRange("C13").setValue("No");
-  sheet.getRange("C14").setValue("No");
-  sheet.getRange("C15").setValue("No");
-  sheet.getRange("C16").setValue("No");
-  sheet.getRange("E16").setValue("No");
-  sheet.getRange("C17").setValue("No");
-  sheet.getRange("C22").setValue("No");
+  sheet.getRange("C9:C19").setValue("No");
+//  sheet.getRange("C10").setValue("No");
+//  sheet.getRange("C11").setValue("No");
+//  sheet.getRange("C12").setValue("No");
+//  sheet.getRange("C13").setValue("No");
+//  sheet.getRange("C14").setValue("No");
+//  sheet.getRange("C15").setValue("No");
+//  sheet.getRange("C16").setValue("No");
+//  sheet.getRange("C17").setValue("No");
+//  sheet.getRange("C18").setValue("No");
+//  sheet.getRange("C19").setValue("No");
+  sheet.getRange("E18").setValue("No");
+  sheet.getRange("C24").setValue("No");
   
   //Set keyword/phrase blank
-  sheet.getRange("C21").setValue("");
+  sheet.getRange("C23").setValue("");
   
   //Set dependent fields blank
-  sheet.getRange("E9").setValue("");
-  sheet.getRange("E10").setValue("");
-  sheet.getRange("E11").setValue("");
-  sheet.getRange("E12").setValue("");
-  sheet.getRange("E13").setValue("");
-  sheet.getRange("E14").setValue("");
-  sheet.getRange("E15").setValue("");
-  sheet.getRange("E17").setValue("");
-  sheet.getRange("E21").setValue("");
+  sheet.getRange("E9:E17").setValue("");
+  //sheet.getRange("E10").setValue("");
+  //sheet.getRange("E11").setValue("");
+  //sheet.getRange("E12").setValue("");
+  //sheet.getRange("E13").setValue("");
+  //sheet.getRange("E14").setValue("");
+  //sheet.getRange("E15").setValue("");
+  //sheet.getRange("E17").setValue("");
+  sheet.getRange("E19").setValue("");
+  sheet.getRange("E23").setValue("");
 }
