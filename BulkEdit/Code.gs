@@ -17,17 +17,21 @@ function bulkEdit(){
   var changeDur = sheet.getRange("C13").getValue();
   var lengthenShorten = sheet.getRange("D13").getValue();
   var changeDurByMin = sheet.getRange("E13").getValue();
-  var addRemind = sheet.getRange("C14").getValue();
-  var minutesRemind = sheet.getRange("E14").getValue();
-  var deleteRemind = sheet.getRange("C15").getValue();
-  var deleteReminderType = sheet.getRange("E15").getValue();
-  var deleteTheEvent = sheet.getRange("C16").getValue();
-  var keyword = sheet.getRange("C21").getValue();
-  var keywordLoc = sheet.getRange("E21").getValue();
-  var allDays = sheet.getRange("C22").getValue();
-  var alternativeDelete = sheet.getRange("E16").getValue();
-  var visibility = sheet.getRange("C17").getValue();
-  var visibilityTo = sheet.getRange("E17").getValue();
+  var changeAbsStart = sheet.getRange("C14").getValue();
+  var absStart = sheet.getRange("E14").getValue();
+  var changeAbsEnd = sheet.getRange("C15").getValue();
+  var absEnd = sheet.getRange("E15").getValue();
+  var addRemind = sheet.getRange("C16").getValue();
+  var minutesRemind = sheet.getRange("E16").getValue();
+  var deleteRemind = sheet.getRange("C17").getValue();
+  var deleteReminderType = sheet.getRange("E17").getValue();
+  var deleteTheEvent = sheet.getRange("C18").getValue();
+  var keyword = sheet.getRange("C23").getValue();
+  var keywordLoc = sheet.getRange("E23").getValue();
+  var allDays = sheet.getRange("C24").getValue();
+  var alternativeDelete = sheet.getRange("E18").getValue();
+  var visibility = sheet.getRange("C19").getValue();
+  var visibilityTo = sheet.getRange("E19").getValue();
   
   if (checkRequiredFields() == false)
     return;
@@ -138,6 +142,49 @@ function bulkEdit(){
       }
     }
     
+    if (changeAbsStart == "Yes") {  // Change absolute beginning time of event
+      appendToLog('Editing start time for "' + currentEvent.getTitle() + '" ...');
+      if (currentEvent.isAllDayEvent() == true) {  // if it is an all-day event, throw an error
+      appendToLog('"' + currentEvent.getTitle() + "\" is an all-day event. You can't change the absolute start time of an all-day event.");
+      continue;
+      }
+      else {    
+        var oldStart = new Date(currentEvent.getStartTime().getTime());
+        var oldEnd = new Date(currentEvent.getEndTime().getTime());
+        var newStart = new Date(currentEvent.getStartTime().getTime());
+        newStart.setHours(absStart.getHours());
+        newStart.setMinutes(absStart.getMinutes());
+        var newEnd = new Date(newStart.getTime() + (oldEnd.getTime() - oldStart.getTime()));
+        currentEvent.setTime(newStart,newEnd);
+        appendToLog('Set start time for "' + currentEvent.getTitle() + '" from ' + oldStart + ' to ' + newStart);
+      }
+    }
+    
+    if (changeAbsEnd == "Yes") { // Change absolute end of time event
+      appendToLog('Editing end time for "' + currentEvent.getTitle() + '"...');
+      if (currentEvent.isAllDayEvent() == true) {  // if it is an all-day event, throw an error
+        appendToLog('"' + currentEvent.getTitle() + "\" is an all-day event. You can't change the absolute start time of an all-day event.");
+        continue;
+      } 
+      else {
+        var oldStart = new Date(currentEvent.getStartTime().getTime());
+        var oldEnd = new Date(currentEvent.getEndTime().getTime());
+        var newStart = new Date(oldStart);
+        var newEnd = new Date(oldEnd);
+        newEnd.setHours(absEnd.getHours());
+        newEnd.setMinutes(absEnd.getMinutes());
+        
+        if (newEnd.getTime() < newStart.getTime()) {
+          appendToLog('Cannot set end time for "' + currentEvent.getTitle() + '" before start time.');
+          continue;
+        }
+        
+        currentEvent.setTime(newStart,newEnd);
+        appendToLog('Set end time for "' + currentEvent.getTitle() + '" from ' + oldEnd + ' to ' + newEnd);
+      }
+    }
+    
+        
     if (addRemind == "Yes (Email)"){ //Add reminders to the event
       addReminders(calendarID,currentEvent.getId(),"Email",minutesRemind);
     }
